@@ -77,7 +77,7 @@ function handleButton(id) {
             reset();
             updateDisplay(operator);
             break;
-        case '.':
+        case 'dot':
             if (decimal == false) {
                 decimal = true;
                 displayc.textContent += '.';
