@@ -33,6 +33,8 @@ function operate(operator, a, b) {
 
 let curValue = 0;
 let preValue = 0;
+let decimal = false;
+let placeValue = 1;
 let result = 0;
 let operator = ' ';
 
@@ -54,7 +56,6 @@ function handleButton(id) {
         case '/':
             if (preValue > 0 && curValue > 0) {
                 curValue = operate(operator, preValue, curValue);
-                updateDisplay(operator);
             }
             preValue = curValue;
             curValue = 0;
@@ -75,15 +76,28 @@ function handleButton(id) {
             reset();
             updateDisplay(operator);
             break;
+        case '.':
+            if (decimal == false) {
+                decimal = true;
+                displayc.textContent += '.';
+            } 
+            break;
         default:
+            
             handleNumber(id);
             break;
      }
 }
 
 function handleNumber(id) {
-    curValue *= 10;
-    curValue += Number(id);
+    num = Number(id);
+    if (decimal == true) {
+        curValue += num / 10;
+        decimal=false;
+    } else {
+        curValue *= 10;
+        curValue += num;
+    }
     updateDisplay(operator);
 }
 
@@ -101,4 +115,5 @@ function reset() {
     curValue = 0;
     preValue = 0;
     operator = '';
+    placeValue = 0;
 }
