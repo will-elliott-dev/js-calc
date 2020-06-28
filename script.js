@@ -34,7 +34,7 @@ function operate(operator, a, b) {
 let curValue = 0;
 let preValue = 0;
 let decimal = false;
-let placeValue = 1;
+let endofnum = false;
 let result = 0;
 let operator = ' ';
 
@@ -54,6 +54,7 @@ function handleButton(id) {
         case '-':
         case '*':
         case '/':
+            endofnum=false;
             if (preValue > 0 && curValue > 0) {
                 curValue = operate(operator, preValue, curValue);
             }
@@ -83,8 +84,10 @@ function handleButton(id) {
             } 
             break;
         default:
-            
-            handleNumber(id);
+            if (endofnum === false)
+            {
+                handleNumber(id);
+            } 
             break;
      }
 }
@@ -94,6 +97,7 @@ function handleNumber(id) {
     if (decimal == true) {
         curValue += num / 10;
         decimal=false;
+        endofnum = true;
     } else {
         curValue *= 10;
         curValue += num;
@@ -115,5 +119,5 @@ function reset() {
     curValue = 0;
     preValue = 0;
     operator = '';
-    placeValue = 0;
+    endofnum = false;
 }
